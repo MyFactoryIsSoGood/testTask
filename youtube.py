@@ -1,0 +1,35 @@
+from googleapiclient.discovery import build
+from google_auth_oauthlib.flow import InstalledAppFlow
+from google.auth.transport.requests import Request
+import os
+import pickle
+
+SCOPES = ["https://www.googleapis.com/auth/youtube.force-ssl"]
+
+
+def auth():
+    os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
+    api_service_name = "youtube"
+    api_version = "v3"
+    credentials_filename = "credentials.json"
+    credentials = None
+    if os.path.exists("token.pickle"):
+        with open("token.pickle", "rb") as token:
+            credentials = pickle.load(token)
+    if not credentials or not credentials.valid:
+        if credentials and credentials.expired and credentials.refresh_token:
+            credentials.refresh(Request())
+        else:
+            flow = InstalledAppFlow.from_client_secrets_file(credentials_filename, SCOPES)
+            credentials = flow.run_local_server(port=8000)
+        with open("token.pickle", "wb") as token:
+            pickle.dump(credentials, token)
+    return build(api_service_name, api_version, credentials=credentials)
+
+
+def search(youtube, **kwargs):
+    return youtube.search().list(part="snippet", **kwargs).execute()
+
+
+def get_video_details(youtube, **kwargs):
+    return youtube.videos().list(part="snippet,statistics", **kwargs).execute()

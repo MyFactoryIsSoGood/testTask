@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{{ video.title }}</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  </head>
+  <body>
+<main style="margin-left: 100px; margin-top: 30px" role="main">
+    <iframe width="1008" height="567" src="https://www.youtube.com/embed/{{ video.videoId }}" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <h2>{{ video.title }}</h2>
+    <p>
+        <h5>{{ video.views }} просмотров</h5>
+        <br>
+        <p>
+            <strong>Канал:</strong>
+            {{ video.channelTitle}}
+        </p>
+        <strong>Описание:</strong>
+        <br>
+        {{ video.description }}
+        <br>
+
+    </p>
+    <h5>Перевод страницы:</h5>
+    <form action="" method="post">
+        {% csrf_token %}
+        <select class="custom-select" name="language" id="1" style="width: 200px">
+            <option selected="">Выберите язык</option>
+            <option value="ru">Русский</option>
+            <option value='en'>Английский</option>
+            <option value='fr'>Французский</option>
+            <option value='de'>Немецкий</option>
+            <option value='it'>Итальянский</option>
+            <option value='kk'>Казахский</option>
+            <option value="es">Испанский</option>
+        </select>
+        <button type="submit" name="submit" value="language" class="btn btn-primary my-2">Перевести!</button>
+    </form>
+</main>
+</body>
+</html>
