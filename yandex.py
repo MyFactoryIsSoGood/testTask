@@ -1,5 +1,5 @@
 import requests
-from testTask.settings import YANDEX_API_KEY,YANDEX_FOLDER_ID
+from testTask.settings import YANDEX_API_KEY, YANDEX_FOLDER_ID
 
 
 class YandexApi:
@@ -16,7 +16,7 @@ class YandexApi:
         }
         headers = {
             "Content-Type": "application/json",
-            "Authorization": "Bearer {0}".format(self.YANDEX_API_KEY)
+            "Authorization": "Bearer {0}".format(self.token)
         }
         response = requests.post(endpoint_url, json=body, headers=headers)
         translated = [response.json()['translations'][iterator]['text'] for iterator in range(len(texts))]
