@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 
-YANDEX_API_KEY = 't1.9euelZqPkI-Ql4uXjpHPk5WPlZuOmu3rnpWak5DGnJKQkpiLzoqSzpWLzYrl8_dnLAlu-e9tSjck_d3z9ydbBm75721KNyT9.ISXAnoTY__HW5GZmJnpHOY-XwUe--a63r-kaEmOAB5D7UwuxwKJ1jt30PQCUN_F0QXC6bSM4L9VSjIsOtoXNBg'
+YANDEX_OAUTH2 = 'AQAAAAAQC5BFAATuwaJyH-mUCUMniM2vOsWSfck'
 YANDEX_FOLDER_ID = 'b1g5ijo3tb5eg6prfi8s'
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
