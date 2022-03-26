@@ -22,6 +22,9 @@ class YandexApi:
         response = requests.post(endpoint_url, json=body, headers=headers)
         translated = [response.json()['translations'][iterator]['text'] for iterator in range(len(texts))]
         translated_dict = {}
-        for i in range(len(schema)):
-            translated_dict[schema[i]] = translated[i]
+        if len(translated) == 1:
+            translated_dict[schema[0]] = translated[0]
+        else:
+            for i in range(len(schema)):
+                translated_dict[schema[i]] = translated[i]
         return translated_dict

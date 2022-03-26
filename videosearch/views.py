@@ -48,8 +48,13 @@ def video_page(request, id):
     if request.method == 'POST':
         dict_video = {'title': video.__dict__['title'], 'description': video.__dict__['description']}
         translator = YandexApi()
-        translated = translator.translate(request.POST['language'], dict_video)
+        if dict_video['description'] == '':  # Переводчик не принимает пустые строки
+            dict_video.pop('description', None)
+            translated = translator.translate(request.POST['language'], dict_video, schema=['title'])
+        else:
+            translated = translator.translate(request.POST['language'], dict_video)
         video.title = translated['title']
-        video.description = translated['description']
+        if len(dict_video) != 1:  # проверка на отсутствие описания
+            video.description = translated['description']
     context = {'video': video}
     return render(request, 'videosearch/video_page.html', context=context)
