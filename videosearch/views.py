@@ -10,7 +10,7 @@ def index(request):
     context = {}
     if request.method == 'POST':
         yt = auth()
-        response = search(yt, q=request.POST['search'], maxResults=300, type='video')['items']
+        response = search(yt, q=request.POST['search'], maxResults=20, type='video')['items']
         videos_data = [vid['id']['videoId'] for vid in response]
         response = get_video_details(yt, id=','.join(videos_data))
         for result in response['items']:
