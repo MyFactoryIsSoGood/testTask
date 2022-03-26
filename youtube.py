@@ -1,8 +1,10 @@
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
+from testTask.settings import YOUTUBE_API_KEY
 import os
 import pickle
+import requests
 
 SCOPES = ["https://www.googleapis.com/auth/youtube.force-ssl"]
 
@@ -27,9 +29,21 @@ def auth():
     return build(api_service_name, api_version, credentials=credentials)
 
 
-def search(youtube, **kwargs):
-    return youtube.search().list(part="snippet", **kwargs).execute()
+def search(query):
+    response = requests.get('https://youtube.googleapis.com/youtube/v3/search', params={
+        'key': YOUTUBE_API_KEY,
+        'part': 'snippet',
+        'q': query,
+        'type': 'video',
+        'maxResults': 30
+    })
+    return response.json()
 
 
-def get_video_details(youtube, **kwargs):
-    return youtube.videos().list(part="snippet,statistics", **kwargs).execute()
+def get_video_details(ids):
+    response = requests.get('https://youtube.googleapis.com/youtube/v3/videos', params={
+        'key': YOUTUBE_API_KEY,
+        'part': 'snippet,statistics',
+        'id': ids
+    })
+    return response.json()

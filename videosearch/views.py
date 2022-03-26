@@ -10,9 +10,9 @@ def index(request):
     context = {}
     if request.method == 'POST':
         yt = auth()
-        response = search(yt, q=request.POST['search'], maxResults=20, type='video')['items']
+        response = search(query=request.POST['search'])['items']
         videos_data = [vid['id']['videoId'] for vid in response]
-        response = get_video_details(yt, id=','.join(videos_data))
+        response = get_video_details(ids=','.join(videos_data))
         for result in response['items']:
             video_data = {
                 'id': result['id'],
@@ -46,6 +46,9 @@ def index(request):
 def video_page(request, id):
     video = Video.objects.get(videoId=id)
     if request.method == 'POST':
+        if request.POST['language'] == '':
+            context = {'video': video}
+            return render(request, 'videosearch/video_page.html', context=context)
         dict_video = {'title': video.__dict__['title'], 'description': video.__dict__['description']}
         translator = YandexApi()
         if dict_video['description'] == '':  # Переводчик не принимает пустые строки

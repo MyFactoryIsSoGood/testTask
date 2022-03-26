@@ -14,6 +14,7 @@ from pathlib import Path
 
 YANDEX_OAUTH2 = 'AQAAAAAQC5BFAATuwaJyH-mUCUMniM2vOsWSfck'
 YANDEX_FOLDER_ID = 'b1g5ijo3tb5eg6prfi8s'
+YOUTUBE_API_KEY = 'AIzaSyBMDag2gIkBAmxrwvDAiRVsySM0ySx7NtI'
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
