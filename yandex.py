@@ -1,11 +1,11 @@
 import requests
 from testTask.settings import YANDEX_OAUTH2, YANDEX_FOLDER_ID
-import time
 
 
 class YandexApi:
     data = f'{{"yandexPassportOauthToken":"{YANDEX_OAUTH2}"}}'
-    token = requests.post('https://iam.api.cloud.yandex.net/iam/v1/tokens', data=data).json()['iamToken']
+    req = requests.post('https://iam.api.cloud.yandex.net/iam/v1/tokens', data=data)
+    token = req.json()['iamToken']
     folder_id = YANDEX_FOLDER_ID
 
     def translate(self, language, texts, schema=['title', 'description']):  # формируем переведенный словарь
